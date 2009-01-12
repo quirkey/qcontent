@@ -4,3 +4,10 @@ $:.unshift(File.dirname(__FILE__)) unless
 module Qcontent
   VERSION = '0.0.1'
 end
+
+require 'rubygems'
+require 'money'
+
+%w{
+  pricing
+}.each {|lib| require "qcontent/#{lib}" }
