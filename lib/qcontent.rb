@@ -9,5 +9,6 @@ require 'rubygems'
 require 'money'
 
 %w{
+  extensions
   pricing
 }.each {|lib| require "qcontent/#{lib}" }
