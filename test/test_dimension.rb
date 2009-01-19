@@ -74,6 +74,20 @@ class TestDimension < Test::Unit::TestCase
         end
       end
       
+      context "with a single string with 'x' delimeter" do
+        setup do
+          @dimension = Qcontent::Dimension.new('400x300')
+        end
+        
+        should "set width" do
+          assert_equal 400, @dimension.width
+        end
+        
+        should "set height" do
+          assert_equal 300, @dimension.height
+        end
+      end
+      
     end
     
     context "#to_s" do

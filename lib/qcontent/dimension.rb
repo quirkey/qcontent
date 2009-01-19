@@ -15,8 +15,8 @@ module Qcontent
       when Dimension
         return first
       else
-        second = args.shift
-        self.width, self.height = first, second
+        self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
+        self.height ||= args.shift
       end
     end
 
