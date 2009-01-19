@@ -11,4 +11,5 @@ require 'money'
 %w{
   extensions
   pricing
+  dimension
 }.each {|lib| require "qcontent/#{lib}" }
