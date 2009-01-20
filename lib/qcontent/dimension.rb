@@ -1,7 +1,8 @@
 module Qcontent
   class Dimension
     class InvalidDimension < ::RuntimeError; end;
-
+    include Comparable
+    
     attr_accessor :width, :height
 
     def initialize(*args)
@@ -20,6 +21,10 @@ module Qcontent
       end
     end
 
+    def ==(other)
+      self.width == other.width && self.height == other.height
+    end
+    
     def width=(w)
       @width = w.nil? ? nil : w.to_i
     end
