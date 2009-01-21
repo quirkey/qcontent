@@ -9,10 +9,9 @@ module Qcontent
       
       def has_assets(group_name, options = {})
         
-        has_many :content_assets, :as => :content
+        has_many :content_assets, :as => :content, :dependent => :delete_all
         has_many "content_#{group_name}", :class_name => 'ContentAsset', 
-                                          :order => 'content_assets.position ASC', 
-                                          :dependent => :delete_all, 
+                                          :order => 'content_assets.position ASC',
                                           :as => :content,
                                           :conditions => "content_assets.asset_group = '#{group_name}'"
         has_many group_name, :through => "content_#{group_name}", :source => :asset
