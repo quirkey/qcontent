@@ -34,7 +34,7 @@ module Qcontent
     end
     
     def to_s(join = 'x')
-      "#{width}x#{height}"
+      "#{width}#{join}#{height}"
     end
 
     def to_a
