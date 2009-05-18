@@ -19,4 +19,5 @@ require 'money'
   assets
   dimension
   published
+  persistance
 }.each {|lib| require "qcontent/#{lib}" }
