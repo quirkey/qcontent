@@ -264,6 +264,24 @@ class TestDimension < Test::Unit::TestCase
         end
       end
       
+      context "with just a name" do
+        setup do
+          @dimension = Qcontent::Dimension.new('medium')
+        end
+
+        should "set width" do
+          assert_equal nil, @dimension.width
+        end
+
+        should "set height" do
+          assert_equal nil, @dimension.height
+        end
+
+        should "set name" do
+          assert_equal 'medium', @dimension.name
+        end        
+      end
+      
     end
     
     context "#to_s" do

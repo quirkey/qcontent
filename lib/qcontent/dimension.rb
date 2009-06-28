@@ -61,7 +61,7 @@ module Qcontent
         self.name  = first.to_s
         parse_arguments(*args)
       else
-        if first.to_i == 0 # its a name
+        if !first.nil? && first.to_i == 0 # its a name
           self.name = first
           parse_arguments(*args)
         else
