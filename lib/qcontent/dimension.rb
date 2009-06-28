@@ -3,7 +3,7 @@ module Qcontent
     class InvalidDimension < ::RuntimeError; end;
     include Comparable
     
-    attr_accessor :width, :height
+    attr_accessor :name, :width, :height
 
     def initialize(*args)
       first = args.shift
@@ -11,13 +11,23 @@ module Qcontent
       when Array
         self.width, self.height = first
       when Hash
-        self.width  = first['width'] || first[:width]
+        self.width  = first['width']  || first[:width]
         self.height = first['height'] || first[:height]
+        self.name   = first['name']   || first[:name]
       when Dimension
         return first
+      when Fixnum
+        self.width  = first
+        self.height = args.shift
       else
-        self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
-        self.height ||= args.shift
+        if first.to_i == 0 # its a name
+          self.name = first
+          d = Dimension.new(*args)
+          self.width, self.height = d.width, d.height 
+        else
+          self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
+          self.height ||= args.shift
+        end
       end
     end
 
@@ -34,7 +44,7 @@ module Qcontent
     end
     
     def to_s(join = 'x')
-      "#{width}#{join}#{height}"
+      name ? name : "#{width}#{join}#{height}"
     end
 
     def to_a
