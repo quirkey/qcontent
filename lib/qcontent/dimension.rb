@@ -6,29 +6,7 @@ module Qcontent
     attr_accessor :name, :width, :height
 
     def initialize(*args)
-      first = args.shift
-      case first
-      when Array
-        self.width, self.height = first
-      when Hash
-        self.width  = first['width']  || first[:width]
-        self.height = first['height'] || first[:height]
-        self.name   = first['name']   || first[:name]
-      when Qcontent::Dimension
-        self.name, self.width, self.height = first.name, first.width, first.height
-      when Fixnum
-        self.width  = first
-        self.height = args.shift
-      else
-        if first.to_i == 0 # its a name
-          self.name = first
-          d = Qcontent::Dimension.new(*args)
-          self.width, self.height = d.width, d.height 
-        else
-          self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
-          self.height ||= args.shift
-        end
-      end
+      parse_arguments(*args)
       @name ||= dimension_s
     end
 
@@ -51,7 +29,11 @@ module Qcontent
     def to_a
       [width, height]
     end
-
+    
+    def to_args
+      [name, width, height]
+    end
+    
     def dimension_s(join = 'x')
       "#{width}#{join}#{height}"
     end
@@ -59,6 +41,33 @@ module Qcontent
     def inspect
       "<Dimension: #{name}, #{dimension_s}>"
     end
-    
+  
+    private
+    def parse_arguments(*args)
+      first = args.shift
+      case first
+      when Array
+        parse_arguments(*first)
+      when Hash
+        self.width  = first['width']  || first[:width]
+        self.height = first['height'] || first[:height]
+        self.name   = first['name']   || first[:name]
+      when Qcontent::Dimension
+        parse_arguments(*first.to_args)
+      when Fixnum
+        self.width  = first
+        self.height = args.shift
+      else
+        if first.to_i == 0 # its a name
+          self.name = first
+          d = Qcontent::Dimension.new(*args)
+          self.width, self.height = d.width, d.height 
+        else
+          self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
+          self.height ||= args.shift
+        end
+      end
+    end
+  
   end
 end

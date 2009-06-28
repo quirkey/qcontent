@@ -156,6 +156,24 @@ class TestDimension < Test::Unit::TestCase
         end
       end
       
+      context "with an array with size" do
+        setup do
+          @dimension = Qcontent::Dimension.new(['medium','400','300'])
+        end
+        
+        should "set width" do
+          assert_equal 400, @dimension.width
+        end
+        
+        should "set height" do
+          assert_equal 300, @dimension.height
+        end
+        
+        should "set name" do
+          assert_equal 'medium', @dimension.name
+        end
+      end
+      
       context "with a string and an array" do
         setup do
           @dimension = Qcontent::Dimension.new('medium',['400','300'])
