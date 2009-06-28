@@ -57,11 +57,13 @@ module Qcontent
       when Fixnum
         self.width  = first
         self.height = args.shift
+      when Symbol
+        self.name  = first.to_s
+        parse_arguments(*args)
       else
         if first.to_i == 0 # its a name
           self.name = first
-          d = Qcontent::Dimension.new(*args)
-          self.width, self.height = d.width, d.height 
+          parse_arguments(*args)
         else
           self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
           self.height ||= args.shift
