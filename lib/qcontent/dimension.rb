@@ -29,6 +29,7 @@ module Qcontent
           self.height ||= args.shift
         end
       end
+      @name ||= dimension_s
     end
 
     def ==(other)
@@ -44,7 +45,11 @@ module Qcontent
     end
     
     def to_s(join = 'x')
-      name ? name : "#{width}#{join}#{height}"
+      name ? name : dimension_s(join)
+    end
+
+    def dimension_s(join = 'x')
+      "#{width}#{join}#{height}"
     end
 
     def to_a

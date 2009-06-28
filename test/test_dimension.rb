@@ -16,6 +16,11 @@ class TestDimension < Test::Unit::TestCase
         should "set height" do
           assert_equal 300, @dimension.height
         end
+        
+        should "set name" do
+          assert_equal '400x300', @dimension.name
+        end
+        
       end
       
       context "with two integers as arguments" do
@@ -30,6 +35,11 @@ class TestDimension < Test::Unit::TestCase
         should "set height" do
           assert_equal 300, @dimension.height
         end
+        
+        should "set name" do
+          assert_equal '400x300', @dimension.name
+        end
+        
       end
       
       context "with an array" do
@@ -44,6 +54,11 @@ class TestDimension < Test::Unit::TestCase
         should "set height" do
           assert_equal 300, @dimension.height
         end
+        
+        should "set name" do
+          assert_equal '400x300', @dimension.name
+        end
+        
       end
       
       context "with a hash" do
@@ -58,6 +73,11 @@ class TestDimension < Test::Unit::TestCase
         should "set height" do
           assert_equal 300, @dimension.height
         end
+        
+        should "set name" do
+          assert_equal '400x300', @dimension.name
+        end
+        
       end
       
       context "with a single string" do
@@ -72,6 +92,11 @@ class TestDimension < Test::Unit::TestCase
         should "set height" do
           assert_equal nil, @dimension.height
         end
+        
+        should "set name" do
+          assert_equal '400x', @dimension.name
+        end
+        
       end
       
       context "with a single string with 'x' delimeter" do
@@ -86,6 +111,11 @@ class TestDimension < Test::Unit::TestCase
         should "set height" do
           assert_equal 300, @dimension.height
         end
+        
+        should "set name" do
+          assert_equal '400x300', @dimension.name
+        end
+        
       end
       
       context "with 3 strings" do
