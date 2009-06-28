@@ -14,15 +14,15 @@ module Qcontent
         self.width  = first['width']  || first[:width]
         self.height = first['height'] || first[:height]
         self.name   = first['name']   || first[:name]
-      when Dimension
-        return first
+      when Qcontent::Dimension
+        self.name, self.width, self.height = first.name, first.width, first.height
       when Fixnum
         self.width  = first
         self.height = args.shift
       else
         if first.to_i == 0 # its a name
           self.name = first
-          d = Dimension.new(*args)
+          d = Qcontent::Dimension.new(*args)
           self.width, self.height = d.width, d.height 
         else
           self.width, self.height = (first.is_a?(String) ? first.split('x') : first)
@@ -47,14 +47,18 @@ module Qcontent
     def to_s(join = 'x')
       name ? name : dimension_s(join)
     end
-
-    def dimension_s(join = 'x')
-      "#{width}#{join}#{height}"
-    end
-
+    
     def to_a
       [width, height]
     end
 
+    def dimension_s(join = 'x')
+      "#{width}#{join}#{height}"
+    end
+    
+    def inspect
+      "<Dimension: #{name}, #{dimension_s}>"
+    end
+    
   end
 end
