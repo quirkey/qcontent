@@ -8,13 +8,12 @@ module Qcontent
     module Macros
       
       def has_assets(group_name, options = {})
-        
         has_many :content_assets, :as => :content, :dependent => :delete_all
         has_many "content_#{group_name}", :class_name => 'ContentAsset', 
                                           :order => 'content_assets.position ASC',
                                           :as => :content,
                                           :conditions => "content_assets.asset_group = '#{group_name}'"
-        has_many group_name, :through => "content_#{group_name}", :source => :asset
+        has_many group_name, :through => "content_#{group_name}", :source => :asset, :order => 'content_assets.position ASC'
         include InstanceMethods
         
         alias_method "#{group_name}_association=", "#{group_name}="
@@ -60,7 +59,7 @@ module Qcontent
               asset = Asset.create({:dir => group_name.to_s}.merge(asset_attributes))
               self.content_assets.create(:asset_id => asset.id, :position => position, :asset_group => group_name.to_s) if asset
             elsif asset_attributes.to_i > 0
-              self.content_assets.create(:asset_id => asset_attributes.to_i, :position => position, :asset_group => group_name.to_s)
+              self.content_assets.create(:asset_id => asset_attributes.to_i, :position => (position.to_i + 1), :asset_group => group_name.to_s)
             end
           end
         end

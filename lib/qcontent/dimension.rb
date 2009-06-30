@@ -39,7 +39,7 @@ module Qcontent
     end
     
     def inspect
-      "<Dimension: #{name}, #{dimension_s}>"
+      "<:Dimension: #{name}, #{dimension_s}:>"
     end
   
     private
